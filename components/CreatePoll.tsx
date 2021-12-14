@@ -52,8 +52,7 @@ const CreatePoll: React.FC = () => {
     const options = values.options.map((option,i)=>(
         <div key={i} className='mt-2'>
             <label className="text-md font-medium text-gray-900 block mb-2 ">Option {i+1} </label>
-            <input type="text" value={option} key={i} onChange={e => handleOptionValue(e, i)}  required className="bg-gray-50 border border-gray-400 text-gray-900 
-                text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+            <input type="text" value={option} key={i} onChange={e => handleOptionValue(e, i)}  required className="formInput">
             </input>
         </div>
     ));
@@ -61,9 +60,8 @@ const CreatePoll: React.FC = () => {
     return (
         <div className="container mx-auto mt-10 max-w-lg p-1">
             <form onSubmit={handleSubmit}>
-                <label htmlFor="question" className="text-md font-medium text-gray-900 block mb-2 ">Question</label>
-                <input type="text" name="question" value={values.question} onChange={onChange} id="question" required className="bg-gray-50 border border-gray-400 text-gray-900 
-                    text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5">
+                <label className="text-md font-medium text-gray-900 block mb-2 ">Question</label>
+                <input type="text" name="question" value={values.question} onChange={onChange} required className="formInput">
                 </input>
                 
                 {options}
@@ -74,8 +72,7 @@ const CreatePoll: React.FC = () => {
                         Add Option
                     </button>
 
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium 
-                    rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center max-w-xs m-3">
+                    <button type="submit" className="submitButton max-w-xs m-3">
                         Submit
                     </button>
                 </div>
