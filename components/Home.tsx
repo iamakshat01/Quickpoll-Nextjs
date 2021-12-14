@@ -1,11 +1,6 @@
-import React,{useState,useEffect} from "react";
-import { useAuth } from "../context/AuthContext";
+import React,{useEffect} from "react";
 
 const Home: React.FC = () => {
-    
-    const { user  } = useAuth();
-    const [userPolls, setUserPolls] = useState<object[]>([]);
-    const [allPolls, setAllPolls] = useState<object[]>([]);
 
     useEffect(()=>{
         
