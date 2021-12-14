@@ -1,6 +1,6 @@
 import axios,{AxiosResponse} from 'axios';
 
-const host = 'http://localhost:3000';
+const host = 'http://secret-falls-21754.herokuapp.com';
 
 // call this without token for logout
 export const setToken = (token:string|null) => {
