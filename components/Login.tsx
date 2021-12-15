@@ -36,7 +36,6 @@ const Login:React.FC = () => {
                 message: 'Invalid Username or Password',
                 type: 'error'
             })
-            console.log(err);
         })
     }
     

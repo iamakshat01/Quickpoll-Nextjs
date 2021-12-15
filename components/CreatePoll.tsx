@@ -36,7 +36,6 @@ const CreatePoll: React.FC = () => {
             "options":values.options.filter(option => option!==''),
             
         }   
-        // console.log(values,poll);
         if(poll.options && poll.options[0]!=='') {
             call('post','api/polls',poll).then((data) => {
                 if (data.error) {

@@ -48,6 +48,11 @@ const Register:React.FC = () => {
     return (
         <div className="container mx-auto mt-10 max-w-xs">
             
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+            
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className="formLabel">Name</label>
