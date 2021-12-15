@@ -41,6 +41,7 @@ const CreatePoll: React.FC = () => {
                     console.log(data.error);
                     if(data._id)
                     router.push(`/${data._id}`);
+                    setValues(initialValues);
                 } else {
                     console.log(data);
                     router.push(`/${data._id}`);
