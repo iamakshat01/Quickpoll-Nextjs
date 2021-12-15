@@ -34,7 +34,7 @@ const Login:React.FC = () => {
             setNotify({
                 isOpen: true,
                 message: 'Invalid Username or Password',
-                type: 'success'
+                type: 'error'
             })
             console.log(err);
         })

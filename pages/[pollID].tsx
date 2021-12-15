@@ -14,6 +14,7 @@ import {
     WhatsappIcon
 } from "react-share";
 import { VictoryPie } from "victory";
+import Notification from '../components/Notification';
 
 const base = 'localhost:3000'
 
@@ -44,7 +45,8 @@ const PollPage: NextPage<IProps> = (props) => {
   
   const [answer, setAnswer] = useState(false);
   const [responses, setResponses] = useState<Option[]>([]);
-  
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+
   useEffect(()=>{
     call('get',`api/polls/${props.poll._id}`)
     .then((data)=>{
@@ -74,8 +76,18 @@ const PollPage: NextPage<IProps> = (props) => {
     call('post',`api/polls/${pollId}`,{answer:option})
     .then((data)=>{
         refresh();
+        setNotify({
+            isOpen: true,
+            message: 'Voted Successfully',
+            type: 'success'
+        })
     })
     .catch((err)=>{
+        setNotify({
+            isOpen: true,
+            message: 'Already Voted',
+            type: 'error'
+        })
         console.log(err);
     })
   }
@@ -96,6 +108,11 @@ const PollPage: NextPage<IProps> = (props) => {
 
   return (
         <div className='container mx-auto mt-10'>
+            
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
             
             <div className='flex justify-center bg-red-100 p-3'>
                 <h1 className="text-3xl">{props.poll.question}</h1>

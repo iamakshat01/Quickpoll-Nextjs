@@ -27,13 +27,23 @@ export default function Notification(props:IProps) {
     }
 
     if(notify.isOpen===true) {
-        return (
+
+        if(notify.type==='success'){
+            return (
             <div className="flex justify-center ">
-                <span className="bg-blue-100 text-blue-800 text-lg font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 m-2">
+                <span className="bg-blue-100 text-blue-800 text-base font-semibold mr-2 px-2.5 py-0.5 rounded m-2">
                     {notify.message}
                 </span>
             </div>
-        )
+        )}
+        else {
+            return (
+            <div className="flex justify-center ">
+                <span className="bg-red-100 text-red-800 text-base font-semibold mr-2 px-2.5 py-0.5 rounded m-2">
+                    {notify.message}
+                </span>
+            </div>
+        )} 
     } else {
         return (<span className='invisible'></span>)
     }

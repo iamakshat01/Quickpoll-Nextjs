@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { call } from '../helpers/api';
 import { useRouter } from 'next/router'
+import Notification from './Notification';
 
 const initialValues = {
     'question': '',
@@ -11,6 +12,7 @@ const initialValues = {
 const CreatePoll: React.FC = () => {
     
     const [values,setValues] = useState(initialValues);
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
     const router = useRouter();
 
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -38,10 +40,18 @@ const CreatePoll: React.FC = () => {
         if(poll.options && poll.options[0]!=='') {
             call('post','api/polls',poll).then((data) => {
                 if (data.error) {
-                    if(data._id)
-                    router.push(`/${data._id}`);
-                    setValues(initialValues);
+                    setNotify({
+                        isOpen: true,
+                        message: 'Poll cannot be created',
+                        type: 'error'
+                    })
                 } else {
+                    setNotify({
+                        isOpen: true,
+                        message: 'Poll Created Successfully',
+                        type: 'success'
+                    })
+                    setValues(initialValues);
                     router.push(`/${data._id}`);
                 }
             })
@@ -58,6 +68,10 @@ const CreatePoll: React.FC = () => {
 
     return (
         <div className="container mx-auto mt-10 max-w-lg p-1">
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
             <form onSubmit={handleSubmit}>
                 <label className="text-md font-medium text-gray-900 block mb-2 ">Question</label>
                 <input type="text" name="question" value={values.question} onChange={onChange} required className="formInput">
