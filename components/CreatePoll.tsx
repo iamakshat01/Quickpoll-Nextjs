@@ -38,12 +38,10 @@ const CreatePoll: React.FC = () => {
         if(poll.options && poll.options[0]!=='') {
             call('post','api/polls',poll).then((data) => {
                 if (data.error) {
-                    console.log(data.error);
                     if(data._id)
                     router.push(`/${data._id}`);
                     setValues(initialValues);
                 } else {
-                    console.log(data);
                     router.push(`/${data._id}`);
                 }
             })

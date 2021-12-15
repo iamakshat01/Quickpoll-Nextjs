@@ -1,4 +1,4 @@
-import type { NextPage,GetServerSideProps } from 'next';
+import type { NextPage } from 'next';
 import React,{useState,useEffect} from 'react';
 import {call} from '../helpers/api';
 import {
@@ -31,7 +31,7 @@ type SinglePoll = {
 
 type Params = {
 	params: {
-		slug: string
+		pollID: string
 	}
 }
 
@@ -73,7 +73,6 @@ const PollPage: NextPage<IProps> = (props) => {
   function handleVote(pollId: string,option: string) {
     call('post',`api/polls/${pollId}`,{answer:option})
     .then((data)=>{
-        console.log(data);
         refresh();
     })
     .catch((err)=>{
@@ -193,7 +192,7 @@ const PollPage: NextPage<IProps> = (props) => {
 
 export async function getServerSideProps({ params }: Params) {
     
-    const id = params.slug;
+    const id = params.pollID;
     const poll = await call('get',`api/polls/${id}`);
     if (!poll) {
         return {
