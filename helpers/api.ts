@@ -16,7 +16,7 @@ export const setToken = (token:string|null) => {
 // method -> get, put, post etc
 // path -> routes after host as string
 // data -> which you need to send in body
-export const call = async (method:string, path:string, data?:object) => {
+export const call = async (method:'get'|'patch'|'post'|'delete', path:string, data?:object) => {
   const response = await axios[method](`${host}/${path}`, data);
   return response.data;
 };
