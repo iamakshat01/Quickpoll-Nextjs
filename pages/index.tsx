@@ -53,13 +53,13 @@ const HomePage: NextPage<IProps> = (props) => {
   },[user])
   
   const allPollsList = props.allpolls.map((poll:Poll,i:number)=>(
-    <div key={i} className='flex justify-center p-3 border-b-2 border-gray-200 bg-gray-100 hover:text-blue-700'>
+    <div key={i} className='listItem'>
       <button onClick={()=>(router.push(poll._id))}>{poll.question}</button>
     </div>
   ))
   
   const userPollsList = userPolls.map((poll:Poll,i:number)=>(
-    <div key={i} className='flex justify-center p-3 border-b-2 border-gray-200 bg-gray-100 hover:text-blue-700'>
+    <div key={i} className='listItem'>
       <button onClick={()=>(router.push(poll._id))}>{poll.question}</button>
     </div>
   ))
@@ -69,17 +69,13 @@ const HomePage: NextPage<IProps> = (props) => {
       <div className="border-b border-gray-200 dark:border-gray-700">
           <ul className="flex flex-wrap justify-center">
               <li className="mr-4">
-                  <button className="inline-flex p-4 text-sm font-medium text-center text-gray-500 border-b-2 
-                  border-transparent rounded-t-lg hover:text-blue-600
-                  hover:border-blue-700 focus:text-blue-600 focus:border-blue-600" onClick={()=>handleTabChange(0)}
+                  <button className="tabButton" onClick={()=>handleTabChange(0)}
                   >
                     All Polls
                   </button>
               </li>
               {user===true && <li className="mr-2">
-                  <button className="inline-flex p-4 text-sm font-medium text-center text-gray-500 border-b-2 
-                  border-transparent rounded-t-lg hover:text-blue-600 
-                  hover:border-blue-700 focus:text-blue-600 focus:border-blue-600" onClick={()=>handleTabChange(1)}
+                  <button className="tabButton" onClick={()=>handleTabChange(1)}
                   >
                     Your Polls
                   </button>
@@ -98,13 +94,6 @@ const HomePage: NextPage<IProps> = (props) => {
     </>
   )
 }
-
-
-
-
-
-
-
 
 export async function getServerSideProps(context:GetServerSideProps) {
   
