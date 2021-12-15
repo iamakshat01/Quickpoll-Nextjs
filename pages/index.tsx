@@ -43,7 +43,6 @@ const HomePage: NextPage<IProps> = (props) => {
       call('get','api/polls/user')
       .then((data)=>{
         setUserPolls(data);
-        // console.log(data);
       })
       .catch((err)=>{
         console.log(err);
