@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import { call,setToken } from '../helpers/api';
 import { useRouter } from 'next/router'
 import { useAuth } from "../context/AuthContext";
+import Notification from './Notification';
 
 const initialValues = {
     'username': '',
@@ -10,7 +11,9 @@ const initialValues = {
 
 const Login:React.FC = () => {
 
-    const [values, setValues] = useState(initialValues);    
+    const [values, setValues] = useState(initialValues); 
+    const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+
     const router = useRouter();
     const { handlelogin  } = useAuth();
 
@@ -18,11 +21,21 @@ const Login:React.FC = () => {
         event.preventDefault();
         call('post','api/auth/login',values)
         .then((data)=>{
+            setNotify({
+                isOpen: true,
+                message: 'Signed In Successfully',
+                type: 'success'
+            })
             setToken(data.token);
             router.push('/');
             handlelogin(true);
         })
         .catch((err)=>{
+            setNotify({
+                isOpen: true,
+                message: 'Invalid Username or Password',
+                type: 'error'
+            })
             console.log(err);
         })
     }
@@ -34,6 +47,11 @@ const Login:React.FC = () => {
     return (
         <div className="container mx-auto mt-10 max-w-xs">
             
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <label className="formLabel">Username</label>

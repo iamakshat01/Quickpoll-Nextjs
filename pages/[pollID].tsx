@@ -1,4 +1,4 @@
-import type { NextPage,GetServerSideProps } from 'next';
+import type { NextPage } from 'next';
 import React,{useState,useEffect} from 'react';
 import {call} from '../helpers/api';
 import {
@@ -14,6 +14,7 @@ import {
     WhatsappIcon
 } from "react-share";
 import { VictoryPie } from "victory";
+import Notification from '../components/Notification';
 
 const base = 'localhost:3000'
 
@@ -31,7 +32,7 @@ type SinglePoll = {
 
 type Params = {
 	params: {
-		slug: string
+		pollID: string
 	}
 }
 
@@ -44,7 +45,8 @@ const PollPage: NextPage<IProps> = (props) => {
   
   const [answer, setAnswer] = useState(false);
   const [responses, setResponses] = useState<Option[]>([]);
-  
+  const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
+
   useEffect(()=>{
     call('get',`api/polls/${props.poll._id}`)
     .then((data)=>{
@@ -73,10 +75,19 @@ const PollPage: NextPage<IProps> = (props) => {
   function handleVote(pollId: string,option: string) {
     call('post',`api/polls/${pollId}`,{answer:option})
     .then((data)=>{
-        console.log(data);
         refresh();
+        setNotify({
+            isOpen: true,
+            message: 'Voted Successfully',
+            type: 'success'
+        })
     })
     .catch((err)=>{
+        setNotify({
+            isOpen: true,
+            message: 'Already Voted',
+            type: 'error'
+        })
         console.log(err);
     })
   }
@@ -97,6 +108,11 @@ const PollPage: NextPage<IProps> = (props) => {
 
   return (
         <div className='container mx-auto mt-10'>
+            
+            <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
             
             <div className='flex justify-center bg-red-100 p-3'>
                 <h1 className="text-3xl">{props.poll.question}</h1>
@@ -193,7 +209,7 @@ const PollPage: NextPage<IProps> = (props) => {
 
 export async function getServerSideProps({ params }: Params) {
     
-    const id = params.slug;
+    const id = params.pollID;
     const poll = await call('get',`api/polls/${id}`);
     if (!poll) {
         return {
