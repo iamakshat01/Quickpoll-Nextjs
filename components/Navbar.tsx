@@ -19,7 +19,13 @@ const Nav:React.FC = () => {
     return (
         <header className="bg-slate-800 text-white">
             <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-                <span className="ml-3 text-xl">Quick Poll</span>
+                <span className="ml-3 text-xl flex flex-row">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-1 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                </svg>
+                    Quick Poll
+                </span>
                 <nav className="md:ml-auto flex flex-wrap item-center text-base justify-center">
                     <span className='mr-5 hover:text-red-400'>
                         <Link href="/">
