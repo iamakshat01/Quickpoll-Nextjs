@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import React from 'react';
 import {call} from '../helpers/api';
 import Poll from '../components/Poll';
+import Head from 'next/head'
 
 type Option = {
     votes: number,
@@ -30,6 +31,10 @@ const PollPage: NextPage<IProps> = (props) => {
 
   return (
         <>
+            <Head>
+                <title>Poll</title>
+                <meta name="description" content={`A poll on ${props.poll.question}`}/>
+            </Head>
             <Poll poll={props.poll}/>
         </>
   )

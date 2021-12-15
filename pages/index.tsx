@@ -1,6 +1,7 @@
 import type { NextPage,GetServerSideProps } from 'next'
 import { call } from '../helpers/api';
-import Home from '../components/Home'
+import Home from '../components/Home';
+import Head from 'next/head';
 
 type Poll = {
 	question: string
@@ -16,6 +17,10 @@ const HomePage: NextPage<IProps> = (props) => {
   
   return (
     <>
+      <Head>
+        <title>Quick-Poll</title>
+        <meta name="description" content="A utility web app for creating, sharing polls and recording responses."/>
+      </Head>
       <Home allpolls={props.allpolls}/>
     </>
   )
