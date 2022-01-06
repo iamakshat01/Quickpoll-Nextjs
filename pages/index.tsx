@@ -26,7 +26,7 @@ const HomePage: NextPage<IProps> = (props) => {
   )
 }
 
-export async function getServerSideProps(context:GetServerSideProps) {
+export async function getStaticProps() {
   
   const allpolls = await call('get','api/polls');
 
@@ -41,6 +41,7 @@ export async function getServerSideProps(context:GetServerSideProps) {
 
   return {
     props: {allpolls},
+    revalidate: 1000,
   }
 }
 
