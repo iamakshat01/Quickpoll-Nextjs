@@ -77,11 +77,21 @@ const Poll: React.FC<IProps> = (props) => {
         })
     })
     .catch((err)=>{
-        setNotify({
-            isOpen: true,
-            message: 'Already Voted',
-            type: 'error'
-        })
+        if(err.statusCode===401) {
+            setNotify({
+                isOpen: true,
+                message: "Please Login First",
+                type: 'error'
+            })
+        }
+        else {
+            setNotify({
+                isOpen: true,
+                message: "Please Login",
+                type: 'error'
+            })
+        }
+       
         console.log(err);
     })
   }
