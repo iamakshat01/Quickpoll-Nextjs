@@ -3,6 +3,9 @@
 
 Quick-Poll is a WEB-APP to support quick, easy and authenticated polling.
 
+![Landing Page](https://i.ibb.co/LRtrqJz/Screenshot-from-2022-01-30-13-18-44.png)
+![Poll Page](https://i.ibb.co/27dmTt1/Screenshot-from-2022-01-30-13-19-55.png)
+
 ## Technologies and Packages Used
 
 1. NextJS
