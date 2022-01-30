@@ -77,11 +77,20 @@ const Poll: React.FC<IProps> = (props) => {
         })
     })
     .catch((err)=>{
-        setNotify({
-            isOpen: true,
-            message: err.message,
-            type: 'error'
-        })
+        if(err.response.status===401) {
+            setNotify({
+                isOpen: true,
+                message: "Please Login or Register",
+                type: 'error'
+            })
+        }
+        else if(err.response.status===400) {
+            setNotify({
+                isOpen: true,
+                message: "Already Voted",
+                type: 'error'
+            })
+        }
         console.log(err);
     })
   }
@@ -102,7 +111,7 @@ const Poll: React.FC<IProps> = (props) => {
 
   return (
         <div className='container mx-auto mt-10'>
-            
+
             <Notification
                 notify={notify}
                 setNotify={setNotify}
