@@ -1,6 +1,6 @@
 import axios,{AxiosResponse} from 'axios';
 
-const host = 'https://secret-falls-21754.herokuapp.com';
+
 
 // call this without token for logout
 export const setToken = (token:string|null) => {
@@ -17,6 +17,7 @@ export const setToken = (token:string|null) => {
 // path -> routes after host as string
 // data -> which you need to send in body
 export const call = async (method:'get'|'patch'|'post'|'delete', path:string, data?:object) => {
+  const host = process.env.NEXT_PUBLIC_HOST;
   const response = await axios[method](`${host}/${path}`, data);
   return response.data;
 };
