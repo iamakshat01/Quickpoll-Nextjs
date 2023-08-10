@@ -9,6 +9,8 @@ const initialValues = {
     'password': ''
 }
 
+const passRegex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+
 const Login:React.FC = () => {
 
     const [values, setValues] = useState(initialValues); 
@@ -19,24 +21,32 @@ const Login:React.FC = () => {
 
     function handleSubmit(event:React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        call('post','api/auth/login',values)
-        .then((data)=>{
+        if(!passRegex.test(values.password)) {
             setNotify({
                 isOpen: true,
-                message: 'Signed In Successfully',
-                type: 'success'
-            })
-            setToken(data.token);
-            router.push('/');
-            handlelogin(true);
-        })
-        .catch((err)=>{
-            setNotify({
-                isOpen: true,
-                message: 'Invalid Username or Password',
+                message: 'Please enter a valid password',
                 type: 'error'
             })
-        })
+        } else {
+            call('post','api/auth/login',values)
+            .then((data)=>{
+                setNotify({
+                    isOpen: true,
+                    message: 'Signed In Successfully',
+                    type: 'success'
+                })
+                setToken(data.token);
+                router.push('/');
+                handlelogin(true, data.id);
+            })
+            .catch((err)=>{
+                setNotify({
+                    isOpen: true,
+                    message: 'Invalid Username or Password',
+                    type: 'error'
+                })
+            })
+        }
     }
     
     function onChange(event: React.ChangeEvent<HTMLInputElement>) {

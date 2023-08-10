@@ -14,8 +14,9 @@ import {
 } from "react-share";
 import { VictoryPie } from "victory";
 import Notification from '../components/Notification';
+import { useAuth } from "../context/AuthContext";
 
-const base = 'localhost:3000'
+const base = process.env.NEXT_PUBLIC_CLIENT
 
 type Option = {
     votes: number,
@@ -40,7 +41,8 @@ const Poll: React.FC<IProps> = (props) => {
   const [answer, setAnswer] = useState(false);
   const [responses, setResponses] = useState<Option[]>([]);
   const [notify, setNotify] = useState({ isOpen: false, message: '', type: '' });
-
+  const {anonId} = useAuth();
+  
   useEffect(()=>{
     call('get',`api/polls/${props.poll._id}`)
     .then((data)=>{
@@ -67,7 +69,7 @@ const Poll: React.FC<IProps> = (props) => {
   }
 
   function handleVote(pollId: string,option: string) {
-    call('post',`api/polls/${pollId}`,{answer:option})
+    call('post',`api/polls/${pollId}`,{answer:option, userId: anonId})
     .then((data)=>{
         refresh();
         setNotify({
@@ -77,14 +79,7 @@ const Poll: React.FC<IProps> = (props) => {
         })
     })
     .catch((err)=>{
-        if(err.response.status===401) {
-            setNotify({
-                isOpen: true,
-                message: "Please Login or Register",
-                type: 'error'
-            })
-        }
-        else if(err.response.status===400) {
+        if(err.response.status===400) {
             setNotify({
                 isOpen: true,
                 message: "Already Voted",
