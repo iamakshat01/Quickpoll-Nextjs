@@ -38,7 +38,7 @@ const Register:React.FC = () => {
                 })
                 setToken(data.token);
                 router.push('/');
-                handlelogin(true);
+                handlelogin(true, data.id);
             })
             .catch((err)=>{
                 setNotify({

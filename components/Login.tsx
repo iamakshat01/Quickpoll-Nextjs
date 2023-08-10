@@ -24,7 +24,7 @@ const Login:React.FC = () => {
         if(!passRegex.test(values.password)) {
             setNotify({
                 isOpen: true,
-                message: 'Please enter a strong password',
+                message: 'Please enter a valid password',
                 type: 'error'
             })
         } else {
@@ -37,7 +37,7 @@ const Login:React.FC = () => {
                 })
                 setToken(data.token);
                 router.push('/');
-                handlelogin(true);
+                handlelogin(true, data.id);
             })
             .catch((err)=>{
                 setNotify({
